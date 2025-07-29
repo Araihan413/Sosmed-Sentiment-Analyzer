@@ -20,6 +20,10 @@ import {
   MessageSquare,
   Clock,
 } from "lucide-react"
+import {extractYouTubeVideoId} from "@/lib/utils"
+import { persentase } from "@/lib/utils"
+
+import { encode } from "punycode"
 
 interface SentimentResult {
   positive: number
@@ -46,30 +50,16 @@ export default function AnalyzerPage() {
     if (!inputText.trim()) return
 
     setIsAnalyzing(true)
-
-    // Simulate API call
-    setTimeout(() => {
-      const mockResults: SentimentResult = {
-        positive: 45,
-        neutral: 30,
-        negative: 25,
-        keywords: {
-          positive: ["great", "love", "amazing", "fast", "friendly"],
-          negative: ["slow", "expensive", "poor", "disappointed", "issues"],
-        },
-        rawComments: [
-          { text: "Love this product, great quality!", sentiment: "positive" },
-          { text: "Delivery was slow but product is okay", sentiment: "neutral" },
-          { text: "Poor customer service, very disappointed", sentiment: "negative" },
-          { text: "Amazing experience, highly recommend!", sentiment: "positive" },
-          { text: "Product works as expected", sentiment: "neutral" },
-        ],
-      }
-
-      setResults(mockResults)
-      setSearchHistory((prev) => [inputText, ...prev.slice(0, 4)])
-      setIsAnalyzing(false)
-    }, 2000)
+    const videoId = extractYouTubeVideoId(inputText) || "";
+// ? memanggil api untuk analisis data
+    fetch(`/api/analyze?keyword=${encodeURIComponent(videoId)}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setResults(data.results);
+        setSearchHistory((prev) => [inputText, ...prev.slice(0, 4)]);
+        setIsAnalyzing(false);
+      })
   }
 
   const getSentimentColor = (sentiment: string) => {
@@ -197,7 +187,7 @@ export default function AnalyzerPage() {
                         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
                           <span className="text-3xl">😊</span>
                         </div>
-                        <div className="text-2xl font-bold text-green-600">{results.positive}%</div>
+                        <div className="text-2xl font-bold text-green-600">{persentase(results.positive, (results.positive + results.neutral + results.negative))}%</div>
                         <div className="text-gray-600">Positive</div>
                       </div>
 
@@ -205,7 +195,7 @@ export default function AnalyzerPage() {
                         <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
                           <span className="text-3xl">😐</span>
                         </div>
-                        <div className="text-2xl font-bold text-gray-600">{results.neutral}%</div>
+                        <div className="text-2xl font-bold text-gray-600">{persentase(results.neutral, (results.positive + results.neutral + results.negative))}%</div>
                         <div className="text-gray-600">Neutral</div>
                       </div>
 
@@ -213,7 +203,7 @@ export default function AnalyzerPage() {
                         <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
                           <span className="text-3xl">😠</span>
                         </div>
-                        <div className="text-2xl font-bold text-red-600">{results.negative}%</div>
+                        <div className="text-2xl font-bold text-red-600">{persentase(results.negative, (results.positive + results.neutral + results.negative))}%</div>
                         <div className="text-gray-600">Negative</div>
                       </div>
                     </div>
@@ -268,7 +258,7 @@ export default function AnalyzerPage() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle>Detailed Analysis</CardTitle>
+                        <CardTitle>Sample Detailed Analysis</CardTitle>
                         <CardDescription>View individual comments with sentiment labels</CardDescription>
                       </div>
                       <div className="flex items-center space-x-2">
