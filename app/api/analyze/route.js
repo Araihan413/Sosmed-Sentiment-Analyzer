@@ -6,9 +6,8 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const keyword = searchParams.get('keyword');
 
-
   if (!keyword) {
-    return NextResponse.json({ error: 'Keyword required' }, { status: 400 });
+    return NextResponse.json({ results: undefined, error: 'No keyword provided' }, { status: 400 });
   }
 
   const rawPosts = await fetchSocialData(keyword);         // Ambil dari Twitter/dll

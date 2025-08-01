@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -23,7 +23,6 @@ import {
 import {extractYouTubeVideoId} from "@/lib/utils"
 import { persentase } from "@/lib/utils"
 
-import { encode } from "punycode"
 
 interface SentimentResult {
   positive: number
@@ -55,12 +54,35 @@ export default function AnalyzerPage() {
     fetch(`/api/analyze?keyword=${encodeURIComponent(videoId)}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setResults(data.results);
-        setSearchHistory((prev) => [inputText, ...prev.slice(0, 4)]);
+        if (!data.results) {
+          sessionStorage.removeItem("dataAnalisis");
+          sessionStorage.removeItem("inputText");
+        }
+        if (data.results) {
+          setSearchHistory((prev) => [inputText, ...prev.slice(0, 4)]);
+          sessionStorage.setItem("dataAnalisis", JSON.stringify(data.results));
+          sessionStorage.setItem("inputText", inputText);
+          sessionStorage.setItem("searchHistory", JSON.stringify([inputText, ...searchHistory.slice(0, 4)]));
+        }
         setIsAnalyzing(false);
       })
   }
+
+  useEffect(() => {
+    const dataAnalisis = sessionStorage.getItem("dataAnalisis");
+    const dataSearchHistory = sessionStorage.getItem("searchHistory");
+    const dataInputText = sessionStorage.getItem("inputText");
+    if (dataSearchHistory) {
+      setSearchHistory(JSON.parse(dataSearchHistory));
+    }
+    if (dataAnalisis) {
+      setResults(JSON.parse(dataAnalisis));
+    }
+    if (dataInputText) {
+      setInputText(dataInputText);
+    }
+  }, [])
 
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
@@ -100,12 +122,12 @@ export default function AnalyzerPage() {
               <span className="text-lg font-semibold text-gray-900">Sentiment Analyzer</span>
             </div>
           </div>
-          {results && (
+          {/* {results && (
             <Button variant="outline" className="flex items-center space-x-2 bg-transparent">
               <Download className="h-4 w-4" />
               <span>Download PDF Report</span>
             </Button>
-          )}
+          )} */}
         </div>
       </nav>
 
@@ -150,12 +172,12 @@ export default function AnalyzerPage() {
                   <span>Analyze Sentiment</span>
                 </CardTitle>
                 <CardDescription>
-                  Paste text or enter a hashtag to analyze sentiment from social media content
+                  Paste text or enter a video link to analyze the sentiment of YouTube comments.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <Textarea
-                  placeholder="Try: 'Love this product, but delivery was slow.' or enter a hashtag like #YourBrand"
+                  placeholder="Enter your youtube video link. Try: 'https://www.youtube.com/watch?v=0gHQK9J8zMU&t=5131s'."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   className="min-h-[120px] resize-none"
@@ -163,13 +185,17 @@ export default function AnalyzerPage() {
                 <Button
                   onClick={handleAnalyze}
                   disabled={!inputText.trim() || isAnalyzing}
-                  className="bg-teal-500 hover:bg-teal-600 text-white"
+                  className="bg-teal-500 hover:bg-teal-600 text-white cursor-pointer"
                 >
                   {isAnalyzing ? "Analyzing..." : "Analyze Now"}
                 </Button>
               </CardContent>
             </Card>
+           
 
+            {results === undefined && (
+               <div className="text-red-600 w-full text-center bg-red-50 border-red-200 py-5 rounded-2xl">Please enter a valid YouTube video link.</div>
+            )}
             {/* Results Section */}
             {results && (
               <>
@@ -223,7 +249,7 @@ export default function AnalyzerPage() {
                           <TrendingUp className="h-4 w-4" />
                           <span>Positive Keywords</span>
                         </h4>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 overflow-auto">
                           {results.keywords.positive.map((keyword, index) => (
                             <Badge
                               key={index}
@@ -241,7 +267,7 @@ export default function AnalyzerPage() {
                           <TrendingDown className="h-4 w-4" />
                           <span>Negative Keywords</span>
                         </h4>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 overflow-auto">
                           {results.keywords.negative.map((keyword, index) => (
                             <Badge key={index} variant="secondary" className="bg-red-100 text-red-700 border-red-200">
                               {keyword}

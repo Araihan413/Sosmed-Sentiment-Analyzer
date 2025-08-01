@@ -26,7 +26,7 @@ export default function HomePage() {
             </Link>
           </div>
           <Link href="/analyzer">
-            <Button className="bg-teal-500 hover:bg-teal-600 text-white">
+            <Button className="bg-teal-500 hover:bg-teal-600 text-white cursor-pointer">
               Try Now
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -51,7 +51,7 @@ export default function HomePage() {
             across all major platforms.
           </p>
           <Link href="/analyzer">
-            <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 text-lg">
+            <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 text-lg cursor-pointer">
               Try Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -89,7 +89,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent className="text-center">
                 <CardDescription className="text-gray-600 leading-relaxed">
-                  Get instant sentiment results from Twitter, Instagram, Facebook, and more. Monitor your brand
+                  Get instant sentiment results from Youtube. Monitor your brand
                   reputation as it happens.
                 </CardDescription>
               </CardContent>
@@ -119,7 +119,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent className="text-center">
                 <CardDescription className="text-gray-600 leading-relaxed">
-                  No technical skills needed—just paste text or enter a hashtag! Get professional insights in seconds.
+                  No technical skills needed—just paste link video Youtube! Get professional insights in seconds.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -142,7 +142,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">1. Enter Data</h3>
               <p className="text-gray-600">
-                Enter a hashtag or paste text from social media comments, reviews, or feedback.
+                Enter the link of the YouTube video you want to analyze and We will fetch the comments.
               </p>
             </div>
 

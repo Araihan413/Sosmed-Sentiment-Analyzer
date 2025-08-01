@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YouTube Sentiment Analyzer 🎭📊
 
-## Getting Started
+An AI-powered tool to analyze sentiment and extract insights from YouTube comments in multiple languages — including Indonesian slang like *"Mantul"* or *"Gaje"*.
 
-First, run the development server:
+[![Live Demo](https://img.shields.io/badge/Demo-Online-green)](https://your-demo.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-14.0-blue)](https://nextjs.org)
+[![AI Model](https://img.shields.io/badge/IBM_Granite-3.3B-orange)](https://replicate.com/ibm/granite-3b-instruct)
+
+![App Screenshot](public/screenshot.png)
+
+---
+
+## ✨ Features
+
+- ✅ **Multilingual Sentiment Analysis**  
+  Understand comments in Indonesian (with slang support), English, or mixed.
+
+- ✅ **Automatic Sentiment Classification**  
+  Categorize comments as **Positive**, **Neutral**, or **Negative**.
+
+- ✅ **Keyword Extraction**  
+  Identify dominant phrases like _“packaging rusak”_ or _“pengiriman cepat”_.
+
+- ✅ **Interactive Dashboard**  
+  Visualize insights with pie/bar charts and word clouds.
+
+- ✅ **Analysis History (Optional)**  
+  Save and manage analysis history via Firebase.
+
+---
+
+## 🧠 How It Works
+
+### 1. Sentiment Classification
+
+| Label      | Contoh Komentar                            |
+|------------|---------------------------------------------|
+| ✅ Positive | "Keren banget!", "Gaskeun", 😊❤️            |
+| 🟢 Neutral  | "Saya beli di Shopee", "Bagus sih..."       |
+| ❌ Negative | "Gak worth it", "Ripuh", 😠👎                |
+
+### 2. Slang & Emoji Recognition  
+Supports informal/slang terms and emoji sentiment mapping.
+
+### 3. Output Format (Example)
+
+```json
+{
+  "positive": 65,
+  "neutral": 20,
+  "negative": 15,
+  "keywords": {
+    "positive": ["bagus", "cepat"],
+    "negative": ["lama", "mahal"]
+  },
+  "rawComments": [
+    { "text": "Produknya bagus!", "sentiment": "positive" },
+    { "text": "Pengirimannya lama", "sentiment": "negative" }
+  ]
+}
+```
+
+---
+
+## 🚀 How to Use
+
+### 1. Analyze YouTube Video Comments
+- Paste a YouTube video URL (e.g., `https://youtu.be/xyz123`)
+- Click **"Analisis Sekarang"**
+- See:
+  - Sentiment percentage
+  - Keyword insights
+  - Raw comment breakdown
+
+### 2. Analyze Manual Text
+- Paste a sentence (e.g., `"Produknya bagus, tapi pengirimannya lama banget!"`)
+- Click **"Analisis Sekarang"**
+- See instant results
+
+### 3. Save & Export (Optional)
+- Login with Google to store analysis history
+- Download PDF reports
+
+---
+
+## 🛠️ Tech Stack
+
+| Komponen     | Teknologi         | Alasan                            |
+|--------------|-------------------|-----------------------------------|
+| Frontend     | Next.js 14        | SEO-friendly & fast rendering     |
+| Styling      | Tailwind CSS      | Rapid UI development              |
+| AI Model     | IBM Granite 3.3B  | Accurate with informal text       |
+| Deployment   | Vercel            | Seamless with Next.js             |
+| Database     | Firebase (optional)| Realtime storage for user history |
+
+---
+
+## ⚙️ Installation Guide
+
+### Prerequisites
+- Node.js 18+
+- YouTube Data API v3 Key
+- Replicate API Key
+
+### Steps
+
+```bash
+# Clone the repo
+git clone https://github.com/your-repo/youtube-sentiment-analyzer.git
+cd youtube-sentiment-analyzer
+
+# Install dependencies
+npm install
+
+# Create .env.local file
+touch .env.local
+```
+
+Inside `.env.local`, add:
+
+```env
+YOUTUBE_API_KEY=your_youtube_api_key
+REPLICATE_API_KEY=your_replicate_api_key
+```
+
+Then start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📊 Real-World Example
 
-## Learn More
+**Case**: A YouTuber posts a gadget review and receives 500+ comments.  
+**Problem**: They don’t realize many viewers are complaining about **battery life**.  
+**Solution**:  
+- Analyze the video with this tool  
+- Find that 25% of comments mention **“baterai cepat habis”**  
+- Address the issue in future content
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📜 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+MIT © 2024 [Your Name]
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎯 Next Features (Planned)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 📈 Compare sentiment across multiple videos
+- 🔔 Alert when negative sentiment spikes
+- 📂 CSV/PDF export enhancements
+
+---
+
+> 💡 Save time and make smarter decisions by understanding your audience’s voice — powered by AI.
