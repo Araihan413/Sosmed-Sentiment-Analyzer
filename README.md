@@ -1,37 +1,35 @@
 # YouTube Sentiment Analyzer 🎭📊
 
-An AI-powered tool to analyze sentiment and extract insights from YouTube comments in multiple languages — including Indonesian slang like *"Mantul"* or *"Gaje"*.
+Alat bertenaga AI untuk menganalisis sentimen dan mengekstrak wawasan dari komentar YouTube dalam berbagai bahasa — termasuk bahasa gaul Indonesia seperti *"Mantul"* atau *"Gaje"*.
 
 [![Live Demo](https://img.shields.io/badge/Demo-Online-green)](https://your-demo.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-14.0-blue)](https://nextjs.org)
 [![AI Model](https://img.shields.io/badge/IBM_Granite-3.3B-orange)](https://replicate.com/ibm/granite-3b-instruct)
 
 ![App Screenshot](public/screenshot.png)
+![App Screenshot](public/screenshot-analisis.png)
 
 ---
 
-## ✨ Features
+## ✨ Fitur
 
-- ✅ **Multilingual Sentiment Analysis**  
-  Understand comments in Indonesian (with slang support), English, or mixed.
+- ✅ **Analisis Sentimen Multibahasa**
+  Memahami komentar dalam bahasa Indonesia (dengan dukungan bahasa gaul), bahasa Inggris, atau campuran.
 
-- ✅ **Automatic Sentiment Classification**  
-  Categorize comments as **Positive**, **Neutral**, or **Negative**.
+- ✅ **Klasifikasi Sentimen Otomatis**
+  Kategorikan komentar sebagai **Positif**, **Netral**, atau **Negatif**.
 
-- ✅ **Keyword Extraction**  
-  Identify dominant phrases like _“packaging rusak”_ or _“pengiriman cepat”_.
+- ✅ **Ekstraksi Kata Kunci**  
+  Identifikasi frasa dominan seperti _“kemasan rusak”_ atau _“pengiriman cepat”_.
 
-- ✅ **Interactive Dashboard**  
-  Visualize insights with pie/bar charts and word clouds.
-
-- ✅ **Analysis History (Optional)**  
-  Save and manage analysis history via Firebase.
+- ✅ **Riwayat Analisis**
+  Simpan riwayat analisis melalui Session Storage.
 
 ---
 
-## 🧠 How It Works
+## 🧠 Cara Kerjanya
 
-### 1. Sentiment Classification
+### 1. Klasifikasi Sentimen
 
 | Label      | Contoh Komentar                            |
 |------------|---------------------------------------------|
@@ -39,10 +37,11 @@ An AI-powered tool to analyze sentiment and extract insights from YouTube commen
 | 🟢 Neutral  | "Saya beli di Shopee", "Bagus sih..."       |
 | ❌ Negative | "Gak worth it", "Ripuh", 😠👎                |
 
-### 2. Slang & Emoji Recognition  
-Supports informal/slang terms and emoji sentiment mapping.
+### 2. Pengenalan Bahasa Gaul & Emoji
 
-### 3. Output Format (Example)
+Mendukung istilah informal/gaul dan pemetaan sentimen emoji.
+
+### 3. Format Output (Contoh)
 
 ```json
 {
@@ -50,64 +49,56 @@ Supports informal/slang terms and emoji sentiment mapping.
   "neutral": 20,
   "negative": 15,
   "keywords": {
-    "positive": ["bagus", "cepat"],
-    "negative": ["lama", "mahal"]
+    "positive": ["bagus", "menarik"],
+    "negative": ["bosan", "suara kecil"]
   },
   "rawComments": [
-    { "text": "Produknya bagus!", "sentiment": "positive" },
-    { "text": "Pengirimannya lama", "sentiment": "negative" }
+    { "text": "Kontennya bagus!", "sentiment": "positive" },
+    { "text": "Pembawaan video nya menarik", "sentiment": "negative" }
   ]
 }
 ```
 
 ---
 
-## 🚀 How to Use
+## 🚀 Cara Menggunakan
 
-### 1. Analyze YouTube Video Comments
-- Paste a YouTube video URL (e.g., `https://youtu.be/xyz123`)
+### 1.Menganalisis Komentar Video YouTube
+- Tempel URL video YouTube (misalnya, `https://www.youtube.com/watch?v=xyz123dsf`)
 - Click **"Analisis Sekarang"**
-- See:
-  - Sentiment percentage
-  - Keyword insights
-  - Raw comment breakdown
+- Lihat:
+  - Persentase sentimen
+  - Wawasan kata kunci
+  - Sample rincian komentar mentah
 
-### 2. Analyze Manual Text
-- Paste a sentence (e.g., `"Produknya bagus, tapi pengirimannya lama banget!"`)
-- Click **"Analisis Sekarang"**
-- See instant results
-
-### 3. Save & Export (Optional)
-- Login with Google to store analysis history
-- Download PDF reports
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Komponen     | Teknologi         | Alasan                            |
+| Komponen     | Teknologi         | Kelebihan                            |
 |--------------|-------------------|-----------------------------------|
-| Frontend     | Next.js 14        | SEO-friendly & fast rendering     |
-| Styling      | Tailwind CSS      | Rapid UI development              |
-| AI Model     | IBM Granite 3.3B  | Accurate with informal text       |
-| Deployment   | Vercel            | Seamless with Next.js             |
-| Database     | Firebase (optional)| Realtime storage for user history |
+| Frontend & Backend     | Next.js 14        | SEO-friendly & fast rendering     |
+| Styling      | Tailwind CSS      | Mudah, cepat dan Konsistensi Desain              |
+| AI Model     | IBM Granite 3.3B-instruct  | Kemampuan Pemahaman Bahasa yang Luas        |
+| Deployment   | Vercel            | Deploy Otomatis & Instan             |
+
 
 ---
 
-## ⚙️ Installation Guide
+## ⚙️ Panduan Instalasi
 
-### Prerequisites
+### Prasyarat
 - Node.js 18+
 - YouTube Data API v3 Key
 - Replicate API Key
 
-### Steps
+### Langkah-langkah
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-repo/youtube-sentiment-analyzer.git
-cd youtube-sentiment-analyzer
+git clone https://github.com/Araihan413/Sosmed-Sentiment-Analyzer.git
+cd Sosmed-Sentiment-Analyzer
 
 # Install dependencies
 npm install
@@ -116,46 +107,46 @@ npm install
 touch .env.local
 ```
 
-Inside `.env.local`, add:
+Di dalam `.env.local`, tambahkan:
 
 ```env
 YOUTUBE_API_KEY=your_youtube_api_key
 REPLICATE_API_KEY=your_replicate_api_key
 ```
 
-Then start the development server:
+Kemudian mulai server development:
 
 ```bash
 npm run dev
 ```
 
-Visit `http://localhost:3000` in your browser.
+Kunjungi `http://localhost:3000` di browser Anda.
 
 ---
 
-## 📊 Real-World Example
+## 📊 Contoh Kasus Nyata
 
-**Case**: A YouTuber posts a gadget review and receives 500+ comments.  
-**Problem**: They don’t realize many viewers are complaining about **battery life**.  
-**Solution**:  
-- Analyze the video with this tool  
-- Find that 25% of comments mention **“baterai cepat habis”**  
-- Address the issue in future content
+**Kasus**: Seorang YouTuber memposting ulasan gadget dan menerima lebih dari 500 komentar.
+**Masalah**: Mereka tidak menyadari banyak penonton mengeluh tentang **daya tahan baterai**.  
+**Solusi**:
+- Analisis video dengan alat ini
+- Temukan bahwa 25% komentar menyebutkan **“baterai cepat habis”**
+- Atasi masalah ini di konten mendatang
 
 ---
 
 ## 📜 License
 
-MIT © 2024 [Your Name]
+MIT © 2025 Ahmad Raihan
 
 ---
 
-## 🎯 Next Features (Planned)
+## 🎯 Fitur Berikutnya (Direncanakan)
 
-- 📈 Compare sentiment across multiple videos
-- 🔔 Alert when negative sentiment spikes
-- 📂 CSV/PDF export enhancements
+- 📈 Bandingkan sentimen di beberapa video
+- 🔔 Beri peringatan saat sentimen negatif meningkat
+- 📂 Peningkatan ekspor CSV/PDF
 
 ---
 
-> 💡 Save time and make smarter decisions by understanding your audience’s voice — powered by AI.
+> 💡 Hemat waktu dan buat keputusan yang lebih cerdas dengan memahami suara audiens Anda — powered by AI.
